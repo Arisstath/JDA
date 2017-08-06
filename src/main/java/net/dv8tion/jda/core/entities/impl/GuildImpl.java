@@ -662,6 +662,9 @@ public class GuildImpl implements Guild
             return true;
         switch (verificationLevel)
         {
+            case VERY_HIGH:
+                if(api.getSelfUser().getPhoneNumber() != null)
+                    break;
             case HIGH:
                 if(ChronoUnit.MINUTES.between(getSelfMember().getJoinDate(), OffsetDateTime.now()) < 10)
                     break;
@@ -674,6 +677,8 @@ public class GuildImpl implements Guild
             case NONE:
                 canSendVerification = true;
                 return true;
+            case UNKNOWN:
+                return true; // try and let discord decide
         }
         return false;
     }
