@@ -14,34 +14,35 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.core.entities.message;
+package net.dv8tion.jda.client.entities.message;
 
 import net.dv8tion.jda.client.entities.Group;
-import net.dv8tion.jda.core.entities.MessageType;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.message.SystemMessage;
 
-public class GroupIconMessage extends GenericGroupMessage
+abstract class GenericGroupMessage extends SystemMessage
 {
-    public GroupIconMessage(User author, Group channel, long messageId, String content)
+    public GenericGroupMessage(User author, Group channel, long messageId, String content)
     {
         super(author, channel, messageId, content);
     }
 
-    /**
-     * The {@link net.dv8tion.jda.core.entities.User User} that updated the
-     * name of this {@link net.dv8tion.jda.client.entities.Group Group}
-     *
-     * @return The responsible {@link net.dv8tion.jda.core.entities.User User}
-     */
     @Override
-    public User getAuthor()
+    public ChannelType getChannelType()
     {
-        return super.getAuthor();
+        return ChannelType.GROUP;
     }
 
     @Override
-    public MessageType getType()
+    public boolean isFromType(ChannelType channelType)
     {
-        return MessageType.CHANNEL_ICON_CHANGE;
+        return channelType == ChannelType.GROUP;
+    }
+
+    @Override
+    public Group getChannel()
+    {
+        return (Group) channel;
     }
 }

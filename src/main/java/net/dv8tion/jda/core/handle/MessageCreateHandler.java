@@ -17,6 +17,9 @@ package net.dv8tion.jda.core.handle;
 
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.client.entities.impl.GroupImpl;
+import net.dv8tion.jda.client.entities.message.GroupIconMessage;
+import net.dv8tion.jda.client.entities.message.GroupNameMessage;
+import net.dv8tion.jda.client.entities.message.GroupRecipientMessage;
 import net.dv8tion.jda.client.events.message.group.GroupCallMessageEvent;
 import net.dv8tion.jda.client.events.message.group.GroupIconMessageEvent;
 import net.dv8tion.jda.client.events.message.group.GroupMessageReceivedEvent;

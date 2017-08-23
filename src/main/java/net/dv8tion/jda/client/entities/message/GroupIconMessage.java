@@ -14,25 +14,34 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.core.entities.message;
+package net.dv8tion.jda.client.entities.message;
 
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 
-public class GroupRecipientMessage extends GenericGroupMessage
+public class GroupIconMessage extends GenericGroupMessage
 {
-    protected boolean add;
-
-    public GroupRecipientMessage(User author, Group channel, long messageId, String content, boolean add)
+    public GroupIconMessage(User author, Group channel, long messageId, String content)
     {
         super(author, channel, messageId, content);
-        this.add = add;
+    }
+
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that updated the
+     * name of this {@link net.dv8tion.jda.client.entities.Group Group}
+     *
+     * @return The responsible {@link net.dv8tion.jda.core.entities.User User}
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
     }
 
     @Override
     public MessageType getType()
     {
-        return add ? MessageType.RECIPIENT_ADD : MessageType.RECIPIENT_REMOVE;
+        return MessageType.CHANNEL_ICON_CHANGE;
     }
 }

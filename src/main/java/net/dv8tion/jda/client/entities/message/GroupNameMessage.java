@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.core.entities.message;
+package net.dv8tion.jda.client.entities.message;
 
 import net.dv8tion.jda.client.entities.Group;
-import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 
-abstract class GenericGroupMessage extends SystemMessage
+public class GroupNameMessage extends GenericGroupMessage
 {
-    public GenericGroupMessage(User author, Group channel, long messageId, String content)
+    public GroupNameMessage(User author, Group channel, long messageId, String content)
     {
         super(author, channel, messageId, content);
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that updated the
+     * name of this {@link net.dv8tion.jda.client.entities.Group Group}
+     *
+     * @return The responsible {@link net.dv8tion.jda.core.entities.User User}
+     */
     @Override
-    public ChannelType getChannelType()
+    public User getAuthor()
     {
-        return ChannelType.GROUP;
+        return super.getAuthor();
     }
 
     @Override
-    public boolean isFromType(ChannelType channelType)
+    public MessageType getType()
     {
-        return channelType == ChannelType.GROUP;
-    }
-
-    @Override
-    public Group getChannel()
-    {
-        return (Group) channel;
+        return MessageType.CHANNEL_NAME_CHANGE;
     }
 }
