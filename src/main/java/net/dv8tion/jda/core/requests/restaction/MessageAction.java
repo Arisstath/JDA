@@ -482,7 +482,7 @@ public class MessageAction extends RestAction<Message> implements Appendable
         }
         catch (FileNotFoundException e)
         {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
         return this;
     }
