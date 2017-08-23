@@ -22,6 +22,9 @@ import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.impl.message.SystemMessage;
 
+/**
+ * Fired for every system message (messages not send by a user)
+ */
 public abstract class GenericSystemMessageEvent extends GenericMessageEvent
 {
     protected SystemMessage message;
@@ -32,16 +35,38 @@ public abstract class GenericSystemMessageEvent extends GenericMessageEvent
         this.message = message;
     }
 
+    /**
+     * The author of this SystemMessage.
+     * <br>More details may be provided by implementations of this class.
+     *
+     * @return Author for this message
+     *
+     * @see    net.dv8tion.jda.core.entities.impl.message.SystemMessage#getAuthor() SystemMessage.getAuthor()
+     */
     public User getAuthor()
     {
         return message.getAuthor();
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.MessageType MessageType}
+     * that specifies what kind of message this is.
+     *
+     * <p>This is never {@link net.dv8tion.jda.core.entities.MessageType#DEFAULT MessageType.DEFAULT}!
+     *
+     * @return {@link net.dv8tion.jda.core.entities.MessageType MessageType}
+     */
     public MessageType getType()
     {
         return message.getType();
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * <br>Implementations of this event may provide a more specific implementation.
+     *
+     * @return The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     */
     public SystemMessage getMessage()
     {
         return message;

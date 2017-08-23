@@ -25,6 +25,17 @@ public class WelcomeMessage extends SystemMessage
         super(author, channel, messageId, content);
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that joined this {@link net.dv8tion.jda.core.entities.Guild Guild}
+     *
+     * @return The joining User
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
+    }
+
     @Override
     public ChannelType getChannelType()
     {

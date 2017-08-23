@@ -22,6 +22,10 @@ import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.impl.message.CallMessage;
 
+/**
+ * Fired when a call is started in a {@link net.dv8tion.jda.core.entities.PrivateChannel PrivateChannel}
+ * and Discord sends a {@link net.dv8tion.jda.core.entities.impl.message.CallMessage CallMessage} to that channel.
+ */
 public class PrivateCallMessageEvent extends GenericPrivateMessageEvent
 {
     protected final CallMessage message;
@@ -32,16 +36,31 @@ public class PrivateCallMessageEvent extends GenericPrivateMessageEvent
         this.message = message;
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that started the call.
+     *
+     * @return The responsible User
+     */
     public User getAuthor()
     {
         return message.getAuthor();
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.MessageType MessageType} for this message.
+     *
+     * @return {@link net.dv8tion.jda.core.entities.MessageType MessageType}
+     */
     public MessageType getType()
     {
         return message.getType();
     }
 
+    /**
+     * The specific {@link net.dv8tion.jda.core.entities.impl.message.CallMessage CallMessage}
+     *
+     * @return The CallMessage
+     */
     public CallMessage getMessage()
     {
         return message;

@@ -19,6 +19,7 @@ package net.dv8tion.jda.client.events.message.group.recipient;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.client.events.message.group.GenericGroupSystemMessageEvent;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.impl.message.GroupRecipientMessage;
 import net.dv8tion.jda.core.entities.impl.message.SystemMessage;
 
@@ -27,6 +28,18 @@ public class GenericGroupRecipientMessageEvent extends GenericGroupSystemMessage
     public GenericGroupRecipientMessageEvent(JDA api, long responseNumber, SystemMessage message, Group group)
     {
         super(api, responseNumber, message, group);
+    }
+
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that is either added or removed
+     * from this {@link net.dv8tion.jda.client.entities.Group Group}.
+     *
+     * @return The affected {@link net.dv8tion.jda.core.entities.User User}
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
     }
 
     @Override

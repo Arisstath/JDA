@@ -26,11 +26,44 @@ public class CallMessage extends SystemMessage
         super(author, channel, messageId, content);
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that started the call
+     *
+     * @return The responsible {@link net.dv8tion.jda.core.entities.User User}
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
+    }
+
+    /**
+     * Returns the {@link net.dv8tion.jda.core.entities.PrivateChannel PrivateChannel} that this message was sent in.
+     * <br><b>This is only valid if the Message was actually sent in a PrivateChannel.</b> This will return {@code null}
+     * if it was not sent from a PrivateChannel.
+     * <br>You can check the type of channel this message was sent from using {@link #isFromType(net.dv8tion.jda.core.entities.ChannelType)} or {@link #getChannelType()}.
+     *
+     * <p>Use {@link #getChannel()} for an ambiguous {@link net.dv8tion.jda.core.entities.MessageChannel MessageChannel}
+     * if you do not need functionality specific to {@link net.dv8tion.jda.core.entities.PrivateChannel PrivateChannel}.
+     *
+     * @return The PrivateChannel this message was sent in, or {@code null} if it was not sent from a PrivateChannel.
+     */
     public PrivateChannel getPrivateChannel()
     {
         return isFromType(ChannelType.PRIVATE) ? (PrivateChannel) channel : null;
     }
 
+    /**
+     * Returns the {@link net.dv8tion.jda.client.entities.Group Group} that this message was sent in.
+     * <br><b>This is only valid if the Message was actually sent in a Group.</b> This will return {@code null}
+     * if it was not sent from a Group.
+     * <br>You can check the type of channel this message was sent from using {@link #isFromType(ChannelType)} or {@link #getChannelType()}.
+     *
+     * <p>Use {@link #getChannel()} for an ambiguous {@link net.dv8tion.jda.core.entities.MessageChannel MessageChannel}
+     * if you do not need functionality specific to {@link net.dv8tion.jda.client.entities.Group Group}.
+     *
+     * @return The Group this message was sent in, or {@code null} if it was not sent from a Group.
+     */
     public Group getGroup()
     {
         return isFromType(ChannelType.GROUP) ? (Group) channel : null;

@@ -28,6 +28,17 @@ public class GuildMemberJoinMessageEvent extends GenericSystemMessageEvent
         super(api, responseNumber, message, channel);
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that joined this {@link net.dv8tion.jda.core.entities.Guild Guild}
+     *
+     * @return The joining User
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
+    }
+
     @Override
     public WelcomeMessage getMessage()
     {
@@ -52,11 +63,22 @@ public class GuildMemberJoinMessageEvent extends GenericSystemMessageEvent
         return (TextChannel) channel;
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.Guild Guild} this message was sent in
+     *
+     * @return The {@link net.dv8tion.jda.core.entities.Guild Guild}
+     */
     public Guild getGuild()
     {
         return getChannel().getGuild();
     }
 
+    /**
+     * {@link net.dv8tion.jda.core.entities.Member Member} instance of the
+     * {@link #getAuthor() getAuthor()} user.
+     *
+     * @return Member instance for message author
+     */
     public Member getMember()
     {
         return getGuild().getMember(getAuthor());

@@ -24,6 +24,10 @@ import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.impl.message.SystemMessage;
 
+/**
+ * Fired when Discord sends a {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+ * to a {@link net.dv8tion.jda.client.entities.Group Group}!
+ */
 public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessageEvent
 {
     protected final SystemMessage message;
@@ -34,21 +38,45 @@ public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessage
         this.message = message;
     }
 
+    /**
+     * Author of the {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * may be specified further in implementation of this event.
+     *
+     * @return {@link net.dv8tion.jda.core.entities.User User}
+     */
     public User getAuthor()
     {
         return message.getAuthor();
     }
 
+    /**
+     * If the author of this {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * is a {@link net.dv8tion.jda.client.entities.Friend Friend} this will return the representing instance.
+     *
+     * @return {@link net.dv8tion.jda.client.entities.Friend Friend} for {@link #getAuthor()} or {@code null}
+     *         if the author is not a friend
+     */
     public Friend getFriend()
     {
         return getJDA().asClient().getFriend(getAuthor());
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.MessageType MessageType}
+     *
+     * @return The {@link net.dv8tion.jda.core.entities.MessageType MessageType}
+     */
     public MessageType getType()
     {
         return message.getType();
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * <br>This may be specified by implementations of this event.
+     *
+     * @return The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     */
     public SystemMessage getMessage()
     {
         return message;

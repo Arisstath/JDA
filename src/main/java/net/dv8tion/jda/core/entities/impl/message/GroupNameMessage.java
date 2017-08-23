@@ -27,6 +27,18 @@ public class GroupNameMessage extends GenericGroupMessage
         super(author, channel, messageId, content);
     }
 
+    /**
+     * The {@link net.dv8tion.jda.core.entities.User User} that updated the
+     * name of this {@link net.dv8tion.jda.client.entities.Group Group}
+     *
+     * @return The responsible {@link net.dv8tion.jda.core.entities.User User}
+     */
+    @Override
+    public User getAuthor()
+    {
+        return super.getAuthor();
+    }
+
     @Override
     public MessageType getType()
     {
