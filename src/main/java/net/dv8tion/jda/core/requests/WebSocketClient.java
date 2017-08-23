@@ -38,7 +38,7 @@ import net.dv8tion.jda.core.managers.impl.AudioManagerImpl;
 import net.dv8tion.jda.core.managers.impl.PresenceImpl;
 import net.dv8tion.jda.core.utils.MiscUtil;
 import net.dv8tion.jda.core.utils.SimpleLog;
-import org.apache.commons.lang3.tuple.MutablePair;
+import net.dv8tion.jda.core.utils.tuple.MutablePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +47,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.OffsetDateTime;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
@@ -55,6 +54,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
 {
     public static final SimpleLog LOG = SimpleLog.getLog("JDASocket");
     public static final int DISCORD_GATEWAY_VERSION = 6;
+    public static final int IDENTIFY_DELAY = 5;
 
     protected final JDAImpl api;
     protected final JDA.ShardInfo shardInfo;
@@ -91,6 +91,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
 
     protected boolean firstInit = true;
     protected boolean processingReady = true;
+    protected boolean handleIdentifyRateLimit = false;
 
     public WebSocketClient(JDAImpl api)
     {
@@ -476,13 +477,24 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
 
     protected void reconnect()
     {
-        LOG.warn("Got disconnected from WebSocket (Internet?!)... Attempting to reconnect in " + reconnectTimeoutS + "s");
+        if (!handleIdentifyRateLimit)
+            LOG.warn("Got disconnected from WebSocket (Internet?!)... Attempting to reconnect in " + reconnectTimeoutS + "s");
         while(shouldReconnect)
         {
             try
             {
                 api.setStatus(JDA.Status.WAITING_TO_RECONNECT);
-                Thread.sleep(reconnectTimeoutS * 1000);
+                if (handleIdentifyRateLimit)
+                {
+                    handleIdentifyRateLimit = false;
+                    LOG.fatal("Encountered IDENTIFY (OP " + WebSocketCode.IDENTIFY + ") Rate Limit! " +
+                        "Waiting " + IDENTIFY_DELAY + " seconds before trying again!");
+                    Thread.sleep(IDENTIFY_DELAY * 1000);
+                }
+                else
+                {
+                    Thread.sleep(reconnectTimeoutS * 1000);
+                }
                 api.setStatus(JDA.Status.ATTEMPTING_TO_RECONNECT);
             }
             catch(InterruptedException ignored) {}
@@ -527,17 +539,15 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
             case WebSocketCode.INVALIDATE_SESSION:
                 LOG.debug("Got Invalidate request (OP 9). Invalidating...");
                 final boolean isResume = content.getBoolean("d");
+                // When d: true we can wait a bit and then try to resume again
+                //sending 4000 to not drop session
+                int closeCode = isResume ? 4000 : 1000;
                 if (isResume)
-                {
-                    LOG.debug("Session can be recovered... Waiting and sending new RESUME request");
-                    // When d: true we can wait a bit and then try to resume again
-                    api.pool.schedule(this::sendResume, 2, TimeUnit.SECONDS);
-                }
-                else
-                {
+                    LOG.debug("Session can be recovered... Closing and sending new RESUME request");
+                else if (!handleIdentifyRateLimit) // this can also mean we got rate limited in IDENTIFY (no need to invalidate then)
                     invalidate();
-                    sendIdentify();
-                }
+
+                close(closeCode);
                 break;
             case WebSocketCode.HELLO:
                 LOG.debug("Got HELLO packet (OP 10). Initializing keep-alive.");
@@ -624,6 +634,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
                     .put(shardInfo.getShardTotal()));
         }
         send(identify.toString(), true);
+        handleIdentifyRateLimit = true;
         sentAuthInfo = true;
     }
 
@@ -794,6 +805,7 @@ public class WebSocketClient extends WebSocketAdapter implements WebSocketListen
                 case "READY":
                     //LOG.debug(String.format("%s -> %s", type, content.toString())); already logged on trace level
                     processingReady = true;
+                    handleIdentifyRateLimit = false;
                     sessionId = content.getString("session_id");
                     if (!content.isNull("_trace"))
                         updateTraces(content.getJSONArray("_trace"), "READY", WebSocketCode.DISPATCH);

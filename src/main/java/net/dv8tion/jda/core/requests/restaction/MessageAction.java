@@ -25,11 +25,11 @@ import net.dv8tion.jda.core.entities.impl.MessageEmbedImpl;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.requests.*;
 import net.dv8tion.jda.core.utils.Checks;
+import net.dv8tion.jda.core.utils.Helpers;
 import net.dv8tion.jda.core.utils.MiscUtil;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import javax.annotation.CheckReturnValue;
@@ -97,7 +97,7 @@ public class MessageAction extends RestAction<Message> implements Appendable
      */
     public boolean isEmpty()
     {
-        return StringUtils.isBlank(content)
+        return Helpers.isBlank(content)
             && (!hasPermission(Permission.MESSAGE_EMBED_LINKS)
                 || embed == null || embed.getLength() == 0);
     }
