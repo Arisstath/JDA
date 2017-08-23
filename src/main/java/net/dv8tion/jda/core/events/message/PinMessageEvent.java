@@ -19,7 +19,7 @@ package net.dv8tion.jda.core.events.message;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.entities.impl.message.PinMessage;
+import net.dv8tion.jda.core.entities.message.PinMessage;
 
 /**
  * Fired when a message was pinned to a channel and Discord reacts by

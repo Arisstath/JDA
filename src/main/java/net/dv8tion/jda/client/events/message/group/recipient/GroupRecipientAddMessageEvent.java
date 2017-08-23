@@ -18,7 +18,7 @@ package net.dv8tion.jda.client.events.message.group.recipient;
 
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.impl.message.GroupRecipientMessage;
+import net.dv8tion.jda.core.entities.message.GroupRecipientMessage;
 
 public class GroupRecipientAddMessageEvent extends GenericGroupRecipientMessageEvent
 {

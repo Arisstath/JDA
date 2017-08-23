@@ -22,10 +22,10 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.impl.message.SystemMessage;
+import net.dv8tion.jda.core.entities.message.SystemMessage;
 
 /**
- * Fired when Discord sends a {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+ * Fired when Discord sends a {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
  * to a {@link net.dv8tion.jda.client.entities.Group Group}!
  */
 public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessageEvent
@@ -39,7 +39,7 @@ public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessage
     }
 
     /**
-     * Author of the {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * Author of the {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      * may be specified further in implementation of this event.
      *
      * @return {@link net.dv8tion.jda.core.entities.User User}
@@ -50,7 +50,7 @@ public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessage
     }
 
     /**
-     * If the author of this {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * If the author of this {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      * is a {@link net.dv8tion.jda.client.entities.Friend Friend} this will return the representing instance.
      *
      * @return {@link net.dv8tion.jda.client.entities.Friend Friend} for {@link #getAuthor()} or {@code null}
@@ -72,10 +72,10 @@ public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessage
     }
 
     /**
-     * The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * The {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      * <br>This may be specified by implementations of this event.
      *
-     * @return The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * @return The {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      */
     public SystemMessage getMessage()
     {

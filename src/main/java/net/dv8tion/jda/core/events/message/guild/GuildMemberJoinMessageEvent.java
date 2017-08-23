@@ -18,7 +18,7 @@ package net.dv8tion.jda.core.events.message.guild;
 
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.entities.impl.message.WelcomeMessage;
+import net.dv8tion.jda.core.entities.message.WelcomeMessage;
 import net.dv8tion.jda.core.events.message.GenericSystemMessageEvent;
 
 public class GuildMemberJoinMessageEvent extends GenericSystemMessageEvent

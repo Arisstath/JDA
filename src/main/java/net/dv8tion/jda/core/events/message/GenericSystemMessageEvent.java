@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.impl.message.SystemMessage;
+import net.dv8tion.jda.core.entities.message.SystemMessage;
 
 /**
  * Fired for every system message (messages not send by a user)
@@ -41,7 +41,7 @@ public abstract class GenericSystemMessageEvent extends GenericMessageEvent
      *
      * @return Author for this message
      *
-     * @see    net.dv8tion.jda.core.entities.impl.message.SystemMessage#getAuthor() SystemMessage.getAuthor()
+     * @see    net.dv8tion.jda.core.entities.message.SystemMessage#getAuthor() SystemMessage.getAuthor()
      */
     public User getAuthor()
     {
@@ -62,10 +62,10 @@ public abstract class GenericSystemMessageEvent extends GenericMessageEvent
     }
 
     /**
-     * The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * The {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      * <br>Implementations of this event may provide a more specific implementation.
      *
-     * @return The {@link net.dv8tion.jda.core.entities.impl.message.SystemMessage SystemMessage}
+     * @return The {@link net.dv8tion.jda.core.entities.message.SystemMessage SystemMessage}
      */
     public SystemMessage getMessage()
     {

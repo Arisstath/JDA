@@ -14,43 +14,34 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.core.entities.impl.message;
+package net.dv8tion.jda.core.entities.message;
 
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.client.entities.Group;
+import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.User;
 
-public class WelcomeMessage extends SystemMessage
+abstract class GenericGroupMessage extends SystemMessage
 {
-    public WelcomeMessage(User author, TextChannel channel, long messageId, String content)
+    public GenericGroupMessage(User author, Group channel, long messageId, String content)
     {
         super(author, channel, messageId, content);
-    }
-
-    /**
-     * The {@link net.dv8tion.jda.core.entities.User User} that joined this {@link net.dv8tion.jda.core.entities.Guild Guild}
-     *
-     * @return The joining User
-     */
-    @Override
-    public User getAuthor()
-    {
-        return super.getAuthor();
     }
 
     @Override
     public ChannelType getChannelType()
     {
-        return ChannelType.TEXT;
+        return ChannelType.GROUP;
     }
 
     @Override
-    public TextChannel getChannel()
+    public boolean isFromType(ChannelType channelType)
     {
-        return (TextChannel) channel;
+        return channelType == ChannelType.GROUP;
     }
 
     @Override
-    public MessageType getType()
+    public Group getChannel()
     {
-        return MessageType.GUILD_MEMBER_JOIN;
+        return (Group) channel;
     }
 }

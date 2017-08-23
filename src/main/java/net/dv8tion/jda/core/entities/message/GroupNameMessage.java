@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package net.dv8tion.jda.core.entities.impl.message;
+package net.dv8tion.jda.core.entities.message;
 
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 
-public class GroupIconMessage extends GenericGroupMessage
+public class GroupNameMessage extends GenericGroupMessage
 {
-    public GroupIconMessage(User author, Group channel, long messageId, String content)
+    public GroupNameMessage(User author, Group channel, long messageId, String content)
     {
         super(author, channel, messageId, content);
     }
@@ -42,6 +42,6 @@ public class GroupIconMessage extends GenericGroupMessage
     @Override
     public MessageType getType()
     {
-        return MessageType.CHANNEL_ICON_CHANGE;
+        return MessageType.CHANNEL_NAME_CHANGE;
     }
 }

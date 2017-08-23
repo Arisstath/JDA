@@ -19,7 +19,7 @@ package net.dv8tion.jda.core.events.message;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.entities.impl.message.CallMessage;
+import net.dv8tion.jda.core.entities.message.CallMessage;
 
 /**
  * Fired when a call was started within either a {@link net.dv8tion.jda.client.entities.Group Group}

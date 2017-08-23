@@ -19,7 +19,7 @@ package net.dv8tion.jda.client.events.message.group;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.impl.message.GroupIconMessage;
+import net.dv8tion.jda.core.entities.message.GroupIconMessage;
 
 public class GroupIconMessageEvent extends GenericGroupSystemMessageEvent
 {
