@@ -19,7 +19,6 @@ package net.dv8tion.jda.client.events.message.group;
 import net.dv8tion.jda.client.entities.Friend;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.MessageType;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.message.SystemMessage;
@@ -80,23 +79,5 @@ public abstract class GenericGroupSystemMessageEvent extends GenericGroupMessage
     public SystemMessage getMessage()
     {
         return message;
-    }
-
-    @Override
-    public Group getChannel()
-    {
-        return (Group) channel;
-    }
-
-    @Override
-    public boolean isFromType(ChannelType type)
-    {
-        return type == ChannelType.GROUP;
-    }
-
-    @Override
-    public ChannelType getChannelType()
-    {
-        return ChannelType.GROUP;
     }
 }

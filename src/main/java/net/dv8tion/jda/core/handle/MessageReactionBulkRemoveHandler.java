@@ -19,11 +19,9 @@ package net.dv8tion.jda.core.handle;
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.client.events.message.group.react.GroupMessageReactionRemoveAllEvent;
 import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.impl.JDAImpl;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveAllEvent;
-import net.dv8tion.jda.core.events.message.priv.react.PrivateMessageReactionRemoveAllEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveAllEvent;
 import net.dv8tion.jda.core.hooks.IEventManager;
 import org.json.JSONObject;
@@ -63,12 +61,12 @@ public class MessageReactionBulkRemoveHandler extends SocketHandler
                     new GroupMessageReactionRemoveAllEvent(
                             api, responseNumber,
                             messageId, (Group) channel));
-                break;
-            case PRIVATE:
-                manager.handle(
-                    new PrivateMessageReactionRemoveAllEvent(
-                            api, responseNumber,
-                            messageId, (PrivateChannel) channel));
+//                break;
+//            case PRIVATE:
+//                manager.handle(
+//                    new PrivateMessageReactionRemoveAllEvent(
+//                            api, responseNumber,
+//                            messageId, (PrivateChannel) channel));
         }
 
         manager.handle(
