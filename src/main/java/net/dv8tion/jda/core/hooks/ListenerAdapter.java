@@ -150,6 +150,7 @@ public abstract class ListenerAdapter implements EventListener
     public void onPrivateMessageEmbed(PrivateMessageEmbedEvent event) {}
     public void onPrivateMessageReactionAdd(PrivateMessageReactionAddEvent event) {}
     public void onPrivateMessageReactionRemove(PrivateMessageReactionRemoveEvent event) {}
+    @Deprecated
     public void onPrivateMessageReactionRemoveAll(PrivateMessageReactionRemoveAllEvent event) {}
     public void onPrivateCallMessage(PrivateCallMessageEvent event) {}
 
@@ -395,8 +396,6 @@ public abstract class ListenerAdapter implements EventListener
             onPrivateMessageReactionAdd((PrivateMessageReactionAddEvent) event);
         else if (event instanceof PrivateMessageReactionRemoveEvent)
             onPrivateMessageReactionRemove((PrivateMessageReactionRemoveEvent) event);
-        else if (event instanceof PrivateMessageReactionRemoveAllEvent)
-            onPrivateMessageReactionRemoveAll((PrivateMessageReactionRemoveAllEvent) event);
 
         //Combined Message Events (Combines Guild and Private message into 1 event)
         else if (event instanceof MessageReceivedEvent)
@@ -596,8 +595,6 @@ public abstract class ListenerAdapter implements EventListener
             onGenericGuildMessage((GenericGuildMessageEvent) event);
         else if (event instanceof GenericMessageReactionEvent)
             onGenericMessageReaction((GenericMessageReactionEvent) event);
-        else if (event instanceof GenericPrivateMessageEvent)
-            onGenericPrivateMessage((GenericPrivateMessageEvent) event);
         else if (event instanceof GenericPrivateMessageReactionEvent)
             onGenericPrivateMessageReaction((GenericPrivateMessageReactionEvent) event);
         else if (event instanceof GenericTextChannelUpdateEvent)
@@ -624,6 +621,8 @@ public abstract class ListenerAdapter implements EventListener
         //Generic events that have generic subclasses (the subclasses as above).
         if (event instanceof GenericMessageEvent)
             onGenericMessage((GenericMessageEvent) event);
+        else if (event instanceof GenericPrivateMessageEvent)
+            onGenericPrivateMessage((GenericPrivateMessageEvent) event);
         else if (event instanceof GenericUserEvent)
             onGenericUser((GenericUserEvent) event);
         else if (event instanceof GenericSelfUpdateEvent)
@@ -730,8 +729,6 @@ public abstract class ListenerAdapter implements EventListener
                 onGenericRelationshipAdd((GenericRelationshipAddEvent) event);
             else if (event instanceof GenericRelationshipRemoveEvent)
                 onGenericRelationshipRemove((GenericRelationshipRemoveEvent) event);
-            else if (event instanceof GenericGroupMessageEvent)
-                onGenericGroupMessage((GenericGroupMessageEvent) event);
             else if (event instanceof GenericGroupMessageReactionEvent)
                 onGenericGroupMessageReaction((GenericGroupMessageReactionEvent) event);
             else if (event instanceof GenericGroupUpdateEvent)
@@ -742,6 +739,11 @@ public abstract class ListenerAdapter implements EventListener
                 onGenericCallVoice((GenericCallVoiceEvent) event);
 
             //Client Only Generic Events
+            //Subclass of GenericGroupEvent must be in different if/else block
+            // cannot be in block above due to GenericGroupMessageReactionEvent being a child
+            if (event instanceof GenericGroupMessageEvent)
+                onGenericGroupMessage((GenericGroupMessageEvent) event);
+
             if (event instanceof GenericRelationshipEvent)
                 onGenericRelationship((GenericRelationshipEvent) event);
             else if (event instanceof GenericGroupEvent)
